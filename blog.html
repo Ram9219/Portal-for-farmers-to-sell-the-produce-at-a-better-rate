@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Farmer's Market</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 w-full bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="index.php" class="flex items-center">
+                    <i class="fas fa-seedling text-primary-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary-700">FarmerSupply</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                    <a href="blog.html" class="text-gray-700 hover:text-primary-600 font-medium">Blog</a>
+                </nav>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search blog posts..." class="pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- User Account -->
+                    <div class="relative group">
+                        <button class="text-primary-600 focus:outline-none">
+                            <i class="fas fa-user text-xl"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <div id="logged-out-menu">
+                                <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Login</a>
+                            </div>
+                            <div id="logged-in-menu" class="hidden">
+                                <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Dashboard</a>
+                                <a href="orders.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">My Orders</a>
+                                <a href="logout.php" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Blog Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-12">Our Blog</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/600x400/f0fdf4/166534?text=Blog+Post+1" alt="Blog Post 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">5 Tips for Growing Healthy Crops</h2>
+                        <p class="text-gray-600 mb-4">Learn the best practices for ensuring your crops thrive this season.</p>
+                        <a href="https://www.agriculture.com/crops" target="_blank" class="text-primary-600 hover:text-primary-700 font-medium">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/600x400/f0fdf4/166534?text=Blog+Post+2" alt="Blog Post 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">The Benefits of Organic Farming</h2>
+                        <p class="text-gray-600 mb-4">Discover why organic farming is better for the environment and your health.</p>
+                        <a href="https://www.nifa.usda.gov/topics/organic-agriculture#:~:text=Organic%20farming%20yields%20such%20vital,environmental%20exposure%20to%20toxic%20materials" target="_blank" class="text-primary-600 hover:text-primary-700 font-medium">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://placehold.co/600x400/f0fdf4/166534?text=Blog+Post+3" alt="Blog Post 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">Top 10 Farming Tools for 2025</h2>
+                        <p class="text-gray-600 mb-4">Check out the must-have tools for every farmer this year.</p>
+                        <a href="https://tractorgyan.com/tractor-industry-news-blogs/793/top-12-agricultural-tools-for-farming-in-india" target="_blank" class="text-primary-600 hover:text-primary-700 font-medium">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-seedling text-primary-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">FarmerSupply</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your trusted partner for quality agricultural supplies.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-primary-400">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-primary-400">Products</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400">Contact</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-primary-400">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="products.html?category=seeds" class="text-gray-400 hover:text-primary-400">Seeds</a></li>
+                        <li><a href="products.html?category=pesticides" class="text-gray-400 hover:text-primary-400">Pesticides</a></li>
+                        <li><a href="products.html?category=fertilizers" class="text-gray-400 hover:text-primary-400">Fertilizers</a></li>
+                        <li><a href="products.html?category=tools" class="text-gray-400 hover:text-primary-400">Tools & Equipment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">Lovely Professional University . Jalandhar Punjab .</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">+91 9219447763</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">ramkumar977@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">tanyayadav1234@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">sahilpathan4351@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400">Created by &copy; RamKumar  ||  Tanya Yadav   ||   Sahil Pathan</p>
+            </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

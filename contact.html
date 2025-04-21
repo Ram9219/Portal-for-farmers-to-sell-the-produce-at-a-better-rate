@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Farmer's Market</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 w-full bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="index.php" class="flex items-center">
+                    <i class="fas fa-seedling text-primary-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary-700">FarmerSupply</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-primary-600 font-medium">Contact</a>
+                </nav>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search products..." class="pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Cart -->
+                    <div class="relative">
+                        <a href="cart.html" class="text-gray-700 hover:text-primary-600">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </a>
+                    </div>
+                    
+                    <!-- User Account -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-primary-600 focus:outline-none">
+                            <i class="fas fa-user text-xl"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <div id="logged-out-menu">
+                                <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Login</a>
+                                <a href="register.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Register</a>
+                            </div>
+                            <div id="logged-in-menu" class="hidden">
+                                <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Dashboard</a>
+                                <a href="orders.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">My Orders</a>
+                                <a href="logout.php" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-primary-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-primary-600 font-medium">Contact</a>
+                    <div class="relative mt-2">
+                        <input type="text" placeholder="Search products..." class="w-full pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="py-12 animate-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h1 class="text-3xl font-bold text-gray-800 mb-4">Contact Us</h1>
+                <p class="text-gray-600">We'd love to hear from you. Please fill out the form below or use our contact information.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Form -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Send Us a Message</h2>
+                    <form id="contact-form">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div>
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Contact Information</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-primary-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Address</h3>
+                                    <p class="text-gray-600">Lovely Professional University . Jalandhar Punjab .</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-phone text-primary-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Phone</h3>
+                                    <p class="text-gray-600">+91 9219447763</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-envelope text-primary-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Email</h3>
+                                    <p class="font-medium">ramkumar977@gmail.com</p>
+                                    <p class="font-medium">tanyayadav1234@gmail.com</p>
+                                    <p class="font-medium">sahilpathan4351@gmail.com</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-clock text-primary-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h3 class="font-medium">Business Hours</h3>
+                                    <p class="text-gray-600">Monday - Friday: 8AM - 6PM</p>
+                                    <p class="text-gray-600">Saturday: 9AM - 4PM</p>
+                                    <p class="text-gray-600">Sunday: Closed</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Connect With Us</h2>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-blue-400 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-pink-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-700 transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-700 transition duration-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="bg-blue-700 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-800 transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map -->
+            <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Our Location</h2>
+                <div class="h-96 bg-gray-200 rounded-lg relative">
+                    <div id="map-loading" class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
+                        <div class="text-center">
+                            <i class="fas fa-spinner fa-spin text-primary-600 text-4xl mb-2"></i>
+                            <p>Loading map...</p>
+                        </div>
+                    </div>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d-122.4194154846812!3d37.77492977975971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064f0e4b1b1%3A0x4c8b0b6c8b0b0b0b!2s123%20Farm%20Road%2C%20Agriville%2C%20AG%2012345!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        onload="document.getElementById('map-loading').style.display='none';">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-600">Find answers to common questions about our products and services.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
+                            <span>What payment methods do you accept?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content hidden mt-4 text-gray-600">
+                            <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. For large orders, we also offer payment by check or wire transfer.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
+                            <span>How long does shipping take?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content hidden mt-4 text-gray-600">
+                            <p>Standard shipping typically takes 3-5 business days within the continental United States. Expedited shipping options are available at checkout. International shipping times vary by location.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
+                            <span>Do you offer bulk discounts?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content hidden mt-4 text-gray-600">
+                            <p>Yes, we offer tiered discounts for bulk orders. The discount percentage increases with the order quantity. Please contact our sales team for a custom quote for large orders.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
+                            <span>What is your return policy?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content hidden mt-4 text-gray-600">
+                            <p>We accept returns within 30 days of purchase for most products. Items must be unused and in their original packaging. Please note that certain products like seeds and perishable items cannot be returned once opened.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold text-gray-800">
+                            <span>Do you ship internationally?</span>
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-content hidden mt-4 text-gray-600">
+                            <p>Yes, we ship to most countries worldwide. However, please note that some agricultural products may be subject to import restrictions in certain countries. International shipping rates and delivery times vary by location.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-seedling text-primary-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">FarmerSupply</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your trusted partner for quality agricultural supplies.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-primary-400">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-primary-400">Products</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400">Contact</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-primary-400">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="seeds.html" class="text-gray-400 hover:text-primary-400">Seeds</a></li>
+                        <li><a href="pesticides.html" class="text-gray-400 hover:text-primary-400">Pesticides</a></li>
+                        <li><a href="fertilizers.html" class="text-gray-400 hover:text-primary-400">Fertilizers</a></li>
+                        <li><a href="equipment.html" class="text-gray-400 hover:text-primary-400">Tools & Equipment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">Lovely Professional University . Jalandhar Punjab .</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">+91 9219447763</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">ramkumar977@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">tanyayadav1234@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">sahilpathan4351@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400">Created by &copy; RamKumar  ||  Tanya Yadav   ||   Sahil Pathan</p>
+            </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            // FAQ toggle
+            $('.faq-toggle').click(function() {
+                $(this).find('i').toggleClass('rotate-180');
+                $(this).next('.faq-content').slideToggle();
+            });
+            
+            // Contact form submission
+            $('#contact-form').submit(function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = $('#name').val();
+                const email = $('#email').val();
+                const subject = $('#subject').val();
+                const message = $('#message').val();
+                
+                // In a real application, this would send a request to the server
+                // For demo purposes, we'll simulate a successful submission
+                
+                // Simulate API call with a timeout
+                setTimeout(function() {
+                    // Show notification
+                    showNotification('Message sent successfully! We will get back to you soon.');
+                    
+                    // Reset form
+                    $('#contact-form')[0].reset();
+                }, 1000);
+            });
+            
+            // Show notification function
+            function showNotification(message, type = 'success') {
+                // Create notification element if it doesn't exist
+                if ($('#notification').length === 0) {
+                    $('body').append('<div id="notification" class="fixed top-20 right-4 py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300"></div>');
+                }
+                
+                // Set notification color based on type
+                if (type === 'success') {
+                    $('#notification').removeClass('bg-red-600').addClass('bg-primary-600 text-white');
+                } else if (type === 'error') {
+                    $('#notification').removeClass('bg-primary-600').addClass('bg-red-600 text-white');
+                }
+                
+                // Show notification with message
+                $('#notification').text(message).removeClass('translate-x-full');
+                
+                // Hide after 3 seconds
+                setTimeout(function() {
+                    $('#notification').addClass('translate-x-full');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

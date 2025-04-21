@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seeds - FarmerSupply</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 w-full bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="index.php" class="flex items-center">
+                    <i class="fas fa-seedling text-primary-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary-700">FarmerSupply</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <div class="relative group">
+                        <a href="products.html" class="text-primary-600 font-medium flex items-center">
+                            Products <i class="fas fa-chevron-down text-xs ml-1"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <a href="products-seeds.html" class="block px-4 py-2 text-sm bg-primary-50 text-primary-600">Seeds</a>
+                            <a href="products-pesticides.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Pesticides</a>
+                            <a href="products-fertilizers.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Fertilizers</a>
+                            <a href="products-equipment.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Equipment</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                </nav>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search products..." class="pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Cart -->
+                    <div class="relative">
+                        <a href="cart.html" class="text-gray-700 hover:text-primary-600">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </a>
+                    </div>
+                    
+                    <!-- User Account -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-primary-600 focus:outline-none">
+                            <i class="fas fa-user text-xl"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <div id="logged-out-menu">
+                                <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Login</a>
+                                <a href="register.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Register</a>
+                            </div>
+                            <div id="logged-in-menu" class="hidden">
+                                <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Dashboard</a>
+                                <a href="orders.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">My Orders</a>
+                                <a href="logout.php" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-primary-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <div class="relative">
+                        <button class="mobile-submenu-toggle text-gray-700 hover:text-primary-600 font-medium flex items-center justify-between w-full">
+                            Products <i class="fas fa-chevron-down text-xs ml-1"></i>
+                        </button>
+                        <div class="mobile-submenu hidden pl-4 mt-2 space-y-2">
+                            <a href="products-seeds.html" class="block text-sm text-primary-600">Seeds</a>
+                            <a href="products-pesticides.html" class="block text-sm text-gray-700 hover:text-primary-600">Pesticides</a>
+                            <a href="products-fertilizers.html" class="block text-sm text-gray-700 hover:text-primary-600">Fertilizers</a>
+                            <a href="products-equipment.html" class="block text-sm text-gray-700 hover:text-primary-600">Equipment</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                    <div class="relative mt-2">
+                        <input type="text" placeholder="Search products..." class="w-full pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="bg-primary-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Seeds</h1>
+                    <p class="text-primary-100 mt-2">High-quality seeds for various crops</p>
+                </div>
+                <nav class="text-sm mt-4 md:mt-0">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="index.html" class="text-primary-100 hover:text-white">Home</a></li>
+                        <li><span class="text-primary-100">/</span></li>
+                        <li><a href="products.html" class="text-primary-100 hover:text-white">Products</a></li>
+                        <li><span class="text-primary-100">/</span></li>
+                        <li><span class="text-white">Seeds</span></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Listing Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar Filters -->
+                <div class="lg:w-1/4">
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Filters</h2>
+                        
+                        <!-- Category Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-medium text-gray-800 mb-2">Seed Type</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Wheat</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Rice</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Corn</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Vegetables</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Fruits</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Range Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-medium text-gray-800 mb-2">Price Range</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="price-range" class="form-radio h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Under ₹500</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price-range" class="form-radio h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">₹500 - ₹1,000</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price-range" class="form-radio h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">₹1,000 - ₹2,000</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price-range" class="form-radio h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">₹2,000 - ₹5,000</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="price-range" class="form-radio h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Above ₹5,000</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Ratings Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-medium text-gray-800 mb-2">Ratings</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Availability Filter -->
+                        <div class="mb-6">
+                            <h3 class="font-medium text-gray-800 mb-2">Availability</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">In Stock</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600">
+                                    <span class="ml-2 text-gray-600">Out of Stock</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Apply Filters Button -->
+                        <button class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product Grid -->
+                <div class="lg:w-3/4">
+                    <!-- Sorting and View Options -->
+                    <div class="bg-white p-4 rounded-lg shadow-md mb-6 flex flex-col sm:flex-row justify-between items-center">
+                        <div class="flex items-center mb-4 sm:mb-0">
+                            <span class="text-gray-600 mr-2">Sort by:</span>
+                            <select class="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option>Featured</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Customer Rating</option>
+                                <option>Newest First</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-600 mr-2">Show:</span>
+                            <select class="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option>12</option>
+                                <option>24</option>
+                                <option>36</option>
+                                <option>48</option>
+                            </select>
+                            <div class="ml-4 flex">
+                                <button class="text-gray-600 hover:text-primary-600 px-2">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-primary-600 px-2">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Product 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/wheat.jpg" alt="Hybrid Wheat Seeds" class="w-full h-64 object-cover">
+                                <div class="absolute top-2 right-2 bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded">Bestseller</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Hybrid Wheat Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">High-yield wheat variety for all seasons</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(42 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹1,499.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="1" data-name="Hybrid Wheat Seeds" data-price="1499">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/rice.jpg" alt="Rice Seeds" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Premium Rice Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">Drought-resistant rice variety with excellent yield</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(36 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹1,299.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="2" data-name="Premium Rice Seeds" data-price="1299">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/corn.jpg" alt="Corn Seeds" class="w-full h-64 object-cover">
+                                <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">Sale</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Sweet Corn Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">Early maturing sweet corn variety</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(52 reviews)</span>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="text-primary-600 font-bold">₹899.00</span>
+                                    <span class="ml-2 text-gray-500 line-through">₹1,199.00</span>
+                                </div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="3" data-name="Sweet Corn Seeds" data-price="899">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets\tamato-hybrid.jpg" alt="Hybrid Seeds" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">Organic</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Organic Tomato Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">Disease-resistant organic tomato seeds</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(28 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹799.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="4" data-name="Organic Tomato Seeds" data-price="799">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/cotton.jpg" alt="Cotton Seeds" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">BT Cotton Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">High-yield BT cotton variety</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(34 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹1,999.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="5" data-name="BT Cotton Seeds" data-price="1999">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/sunflower.jpg" alt="Sunflower Seeds" class="w-full h-64 object-cover">
+                                <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">New</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Sunflower Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">High oil content sunflower seeds</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(15 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹1,399.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="6" data-name="Sunflower Seeds" data-price="1399">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 7 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/okra.jpg" alt="Okra Seeds" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Okra Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">High-yielding okra variety</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(23 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹699.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="7" data-name="Okra Seeds" data-price="699">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 8 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/cucmber.jpg" alt="Cucumber Seeds" class="w-full h-64 object-cover">
+                                <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">Organic</div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Organic Cucumber Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">Certified organic cucumber seeds</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(19 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹599.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="8" data-name="Organic Cucumber Seeds" data-price="599">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 9 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="relative">
+                                <img src="assets/mango.jpg" alt="Mango Seeds" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Alphonso Mango Seeds</h3>
+                                <p class="text-sm text-gray-600 mt-1">Premium Alphonso mango variety seeds</p>
+                                <div class="flex items-center mt-1">
+                                    <div class="text-yellow-400 flex">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-gray-500 text-sm">(45 reviews)</span>
+                                </div>
+                                <div class="mt-2 text-primary-600 font-bold">₹2,499.00</div>
+                                <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="9" data-name="Alphonso Mango Seeds" data-price="2499">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="mt-8 flex justify-center">
+                        <nav class="flex items-center space-x-2">
+                            <a href="#" class="px-3 py-1 rounded-md text-gray-600 hover:text-white hover:bg-primary-600">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" class="px-3 py-1 rounded-md bg-primary-600 text-white">1</a>
+                            <a href="#" class="px-3 py-1 rounded-md text-gray-600 hover:text-white hover:bg-primary-600">2</a>
+                            <a href="#" class="px-3 py-1 rounded-md text-gray-600 hover:text-white hover:bg-primary-600">3</a>
+                            <span class="px-1">...</span>
+                            <a href="#" class="px-3 py-1 rounded-md text-gray-600 hover:text-white hover:bg-primary-600">8</a>
+                            <a href="#" class="px-3 py-1 rounded-md text-gray-600 hover:text-white hover:bg-primary-600">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-seedling text-primary-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">FarmerSupply</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your trusted partner for quality agricultural supplies.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-primary-400">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-primary-400">Products</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400">Contact</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-primary-400">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="seeds.html" class="text-primary-400 hover:text-primary-300">Seeds</a></li>
+                        <li><a href="pesticides.html" class="text-gray-400 hover:text-primary-400">Pesticides</a></li>
+                        <li><a href="fertilizers.html" class="text-gray-400 hover:text-primary-400">Fertilizers</a></li>
+                        <li><a href="equipment.html" class="text-gray-400 hover:text-primary-400">Tools & Equipment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">Lovely Professional University . Jalandhar Punjab .</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">+91 9219447763</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">ramkumar977@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">tanyayadav1234@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">sahilpathan4351@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400">Created by &copy; RamKumar  ||  Tanya Yadav   ||   Sahil Pathan</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

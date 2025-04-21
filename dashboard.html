@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Farmer's Market</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="index.php" class="flex items-center">
+                    <i class="fas fa-seedling text-primary-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary-700">FarmerSupply</span>
+                </a>
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="cart.html" class="text-gray-700 hover:text-primary-600 font-medium">Cart</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Account Details -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Account Details</h2>
+                    <div id="user-details">
+                        <!-- User details will be dynamically loaded here -->
+                        <p class="text-gray-600">Loading user details...</p>
+                    </div>
+                </div>
+
+                <!-- Order History -->
+                <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Order History</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="py-2 px-4 border-b">Order ID</th>
+                                    <th class="py-2 px-4 border-b">Date</th>
+                                    <th class="py-2 px-4 border-b">Items</th>
+                                    <th class="py-2 px-4 border-b">Total</th>
+                                    <th class="py-2 px-4 border-b">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-history">
+                                <!-- Order history will be dynamically added here -->
+                                <tr>
+                                    <td colspan="5" class="py-4 text-center text-gray-600">Loading order history...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">Created by &copy; RamKumar  ||  Tanya Yadav   ||   Sahil Pathan</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+     <!-- <script>
+
+        $(document).ready(function () {
+            // Fetch user details and order history
+            $.ajax({
+                url: 'user.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        const user = response.user;
+                        const orders = response.orders;
+
+                        // Display user details
+                        $('#user-details').html(`
+                            <p class="text-gray-600"><strong>Name:</strong> ${user.name}</p>
+                            <p class="text-gray-600"><strong>Email:</strong> ${user.email}</p>
+                            <p class="text-gray-600"><strong>Phone:</strong> ${user.phone || 'N/A'}</p>
+                        `);
+
+                        // Display order history
+                        if (orders.length > 0) {
+                            $('#order-history').empty();
+                            orders.forEach(order => {
+                                const items = order.items.map(item => `${item.name} (x${item.quantity})`).join(', ');
+                                const orderRow = `
+                                    <tr>
+                                        <td class="py-2 px-4 border-b">${order.id}</td>
+                                        <td class="py-2 px-4 border-b">${order.order_date}</td>
+                                        <td class="py-2 px-4 border-b">${items}</td>
+                                        <td class="py-2 px-4 border-b">$${order.total_amount.toFixed(2)}</td>
+                                        <td class="py-2 px-4 border-b">${order.status}</td>
+                                    </tr>
+                                `;
+                                $('#order-history').append(orderRow);
+                            });
+                        } else {
+                            $('#order-history').html('<tr><td colspan="5" class="py-4 text-center text-gray-600">No orders found.</td></tr>');
+                        }
+                    } else {
+                        $('#user-details').html('<p class="text-red-600">You are not logged in. Please log in to view your dashboard.</p>');
+                    }
+                },
+                error: function () {
+                    $('#user-details').html('<p class="text-red-600">An error occurred while fetching user details.</p>');
+                }
+            });
+        });
+    </script>  -->
+ <script>
+    $(document).ready(function () {
+    // Fetch user details and order history
+    $.ajax({
+        url: 'user.php', // Backend endpoint
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.success) {
+                const user = response.user;
+                const orders = response.orders;
+
+                // Display user details
+                $('#user-details').html(`
+                    <p class="text-gray-600"><strong>Name:</strong> ${user.name}</p>
+                    <p class="text-gray-600"><strong>Email:</strong> ${user.email}</p>
+                    <p class="text-gray-600"><strong>Phone:</strong> ${user.phone || 'N/A'}</p>
+                `);
+
+                // Display order history
+                if (orders.length > 0) {
+                    $('#order-history').empty();
+                    orders.forEach(order => {
+                        const items = order.items.join(', ');
+                        const orderRow = `
+                            <tr>
+                                <td class="py-2 px-4 border-b">${order.id}</td>
+                                <td class="py-2 px-4 border-b">${order.order_date}</td>
+                                <td class="py-2 px-4 border-b">${items}</td>
+                                <td class="py-2 px-4 border-b">₹${order.total_amount.toFixed(2)}</td>
+                                <td class="py-2 px-4 border-b">${order.status}</td>
+                            </tr>
+                        `;
+                        $('#order-history').append(orderRow);
+                    });
+                } else {
+                    $('#order-history').html('<tr><td colspan="5" class="py-4 text-center text-gray-600">No orders found.</td></tr>');
+                }
+            } else {
+                $('#user-details').html('<p class="text-red-600">You are not logged in. Please log in to view your dashboard.</p>');
+            }
+        },
+        error: function () {
+            $('#user-details').html('<p class="text-red-600">An error occurred while fetching user details.</p>');
+        }
+    });
+});
+</script> 
+</body>
+</html>

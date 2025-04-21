@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Farmer's Market</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 w-full bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="index.php" class="flex items-center">
+                    <i class="fas fa-seedling text-primary-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary-700">FarmerSupply</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                </nav>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search products..." class="pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Cart -->
+                    <div class="relative">
+                        <a href="cart.html" class="text-primary-600">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </a>
+                    </div>
+                    
+                    <!-- User Account -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-primary-600 focus:outline-none">
+                            <i class="fas fa-user text-xl"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <div id="logged-out-menu">
+                                <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Login</a>
+                                <a href="register.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Register</a>
+                            </div>
+                            <div id="logged-in-menu" class="hidden">
+                                <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Dashboard</a>
+                                <a href="orders.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">My Orders</a>
+                                <a href="logout.php" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-primary-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                    <div class="relative mt-2">
+                        <input type="text" placeholder="Search products..." class="w-full pl-8 pr-4 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Your Shopping Cart</h1>
+            
+            <!-- Empty Cart Message (hidden when cart has items) -->
+            <div id="empty-cart" class="hidden bg-white p-8 rounded-lg shadow-md text-center">
+                <i class="fas fa-shopping-cart text-primary-300 text-5xl mb-4"></i>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Your cart is empty</h2>
+                <p class="text-gray-600 mb-6">Looks like you haven't added any products to your cart yet.</p>
+                <a href="products.html" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 inline-block">
+                    Browse Products
+                </a>
+            </div>
+            
+            <!-- Cart Items (hidden when cart is empty) -->
+            <div id="cart-items" class="bg-white rounded-lg shadow-md overflow-hidden">
+                <!-- Cart Header -->
+                <div class="bg-gray-50 p-4 border-b">
+                    <div class="grid grid-cols-12 gap-4 font-semibold text-gray-700">
+                        <div class="col-span-6 md:col-span-6">Product</div>
+                        <div class="col-span-2 md:col-span-2 text-center">Price</div>
+                        <div class="col-span-2 md:col-span-2 text-center">Quantity</div>
+                        <div class="col-span-2 md:col-span-2 text-right">Total</div>
+                    </div>
+                </div>
+                
+                <!-- Cart Items List -->
+                <div id="cart-items-list">
+                    <!-- Cart items will be dynamically added here -->
+                </div>
+                
+                <!-- Cart Footer -->
+                <div class="p-4 border-t">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="flex space-x-2 mb-4 md:mb-0">
+                            <input type="text" placeholder="Coupon code" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-300">
+                                Apply
+                            </button>
+                        </div>
+                        <button id="update-cart" class="bg-white border border-primary-600 text-primary-600 hover:bg-primary-50 font-medium py-2 px-4 rounded-lg transition duration-300">
+                            Update Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div id="order-summary" class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Special Instructions</h2>
+                        <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" rows="4" placeholder="Add any special instructions or notes about your order here..."></textarea>
+                    </div>
+                </div>
+                <div class="md:col-span-1">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Order Summary</h2>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span id="subtotal" class="font-medium">Rs.0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Shipping</span>
+                                <span id="shipping" class="font-medium">Rs. 40.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Tax</span>
+                                <span id="tax" class="font-medium">Rs.0.00</span>
+                            </div>
+                            <div class="border-t pt-2 mt-2">
+                                <div class="flex justify-between font-bold">
+                                    <span>Total</span>
+                                    <span id="total" class="text-primary-700">Rs.0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="checkout.html" id="checkout-btn" class="block w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-center">
+                            Proceed to Checkout
+                        </a>
+                        <a href="products.html" class="block w-full text-center mt-4 text-primary-600 hover:text-primary-700">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-seedling text-primary-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">FarmerSupply</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Your trusted partner for quality agricultural supplies.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-primary-400">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-primary-400">Products</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400">Contact</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-primary-400">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="seeds.html" class="text-gray-400 hover:text-primary-400">Seeds</a></li>
+                        <li><a href="pesticides.html" class="text-gray-400 hover:text-primary-400">Pesticides</a></li>
+                        <li><a href="fertilizers.html" class="text-gray-400 hover:text-primary-400">Fertilizers</a></li>
+                        <li><a href="equipment.html" class="text-gray-400 hover:text-primary-400">Tools & Equipment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">Lovely Professional University . Jalandhar Punjab .</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">+91 9219447763</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">ramkumar977@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">tanyayadav1234@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">sahilpathan4351@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400">Created by &copy; RamKumar  ||  Tanya Yadav   ||   Sahil Pathan</p>
+            </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <!-- <script>
+      $(document).ready(function () {
+    // Mobile menu toggle
+    $('#mobile-menu-button').click(function () {
+        $('#mobile-menu').slideToggle();
+    });
+
+    // Get cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log('Cart data retrieved from localStorage:', cart); // Debugging log
+
+    // Update cart UI
+    updateCartUI();
+
+    // Update cart button
+    $('#update-cart').click(function () {
+        console.log('Updating cart...'); // Debugging log
+
+        // Get all quantity inputs
+        $('.item-quantity').each(function () {
+            const id = $(this).data('id');
+            const quantity = parseInt($(this).val());
+
+            // Find the item in the cart
+            const item = cart.find(item => item.id === id);
+
+            if (item) {
+                if (quantity > 0) {
+                    item.quantity = quantity;
+                } else {
+                    // Remove item if quantity is 0
+                    const index = cart.findIndex(item => item.id === id);
+                    if (index !== -1) {
+                        cart.splice(index, 1);
+                    }
+                }
+            }
+        });
+
+        // Save updated cart to localStorage
+        console.log('Cart data before saving:', cart); // Debugging log
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Update cart UI
+        updateCartUI();
+
+        // Show notification
+        showNotification('Cart updated successfully!');
+    });
+
+    // Helper functions
+    function updateCartUI() {
+    console.log('Cart data in updateCartUI:', cart); // Debugging log
+
+    // Update cart count
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    $('#cart-count').text(totalItems);
+
+    // Show/hide empty cart message
+    if (cart.length === 0) {
+        $('#empty-cart').removeClass('hidden');
+        $('#cart-items').addClass('hidden');
+        $('#order-summary').addClass('hidden');
+    } else {
+        $('#empty-cart').addClass('hidden');
+        $('#cart-items').removeClass('hidden');
+        $('#order-summary').removeClass('hidden');
+
+        // Clear cart items list
+        $('#cart-items-list').empty();
+
+        // Add cart items to the list
+        let subtotal = 0;
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            console.log(`Item: ${item.name}, Quantity: ${item.quantity}, Price: ${item.price}, Total: ${itemTotal}`); // Debugging log
+
+            // Create cart item row
+            const cartItemHtml = `
+                <div class="p-4 border-b">
+                    <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-6 md:col-span-6 flex items-center">
+                            <div class="w-16 h-16 bg-gray-100 rounded-md mr-4 flex-shrink-0 overflow-hidden">
+                                <img src="https://placehold.co/100/f0fdf4/166534?text=${item.name.charAt(0)}" alt="${item.name}" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-800">${item.name}</h3>
+                                <button class="remove-item text-red-500 text-sm hover:text-red-700" data-id="${item.id}">
+                                    <i class="fas fa-trash-alt mr-1"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-span-2 md:col-span-2 text-center">
+                            $${item.price}
+                        </div>
+                        <div class="col-span-2 md:col-span-2 text-center">
+                            <input type="number" class="item-quantity w-16 px-2 py-1 border border-gray-300 rounded text-center" value="${item.quantity}" min="0" data-id="${item.id}">
+                        </div>
+                        <div class="col-span-2 md:col-span-2 text-right font-medium">
+                            $${itemTotal.toFixed(2)}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $('#cart-items-list').append(cartItemHtml);
+        });
+
+        // Calculate order summary
+        const tax = subtotal * 0.08; // 8% tax
+        const shipping = subtotal > 0 ? 5 : 0; // $5 shipping fee
+        const total = subtotal + tax + shipping;
+
+        // Update order summary
+        $('#subtotal').text('$' + subtotal.toFixed(2));
+        $('#tax').text('$' + tax.toFixed(2));
+        $('#shipping').text('$' + shipping.toFixed(2));
+        $('#total').text('$' + total.toFixed(2));
+
+        // Add event listener for remove buttons
+        $('.remove-item').click(function () {
+            const id = $(this).data('id');
+            console.log('Removing item with ID:', id); // Debugging log
+
+            // Remove item from cart
+            const index = cart.findIndex(item => item.id === id);
+            if (index !== -1) {
+                cart.splice(index, 1);
+            }
+
+            // Save updated cart to localStorage
+            console.log('Cart data before saving:', cart); // Debugging log
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update cart UI
+            updateCartUI();
+
+            // Show notification
+            showNotification('Item removed from cart!');
+        });
+    }
+}
+    function showNotification(message) {
+        // Create notification element if it doesn't exist
+        if ($('#notification').length === 0) {
+            $('body').append('<div id="notification" class="fixed top-20 right-4 bg-primary-600 text-white py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300"></div>');
+        }
+
+        // Show notification with message
+        $('#notification').text(message).removeClass('translate-x-full');
+
+        // Hide after 3 seconds
+        setTimeout(function () {
+            $('#notification').addClass('translate-x-full');
+        }, 3000);
+    }
+});
+    </script> -->
+    <script>
+        $(document).ready(function () {
+            // Mobile menu toggle
+            $('#mobile-menu-button').click(function () {
+                $('#mobile-menu').slideToggle();
+            });
+    
+            // Get cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            console.log('Cart data retrieved from localStorage:', cart); // Debugging log
+    
+            // Update cart UI
+            updateCartUI();
+    
+            // Update cart button
+            $('#update-cart').click(function () {
+                console.log('Updating cart...'); // Debugging log
+    
+                // Get all quantity inputs
+                $('.item-quantity').each(function () {
+                    const id = $(this).data('id');
+                    const quantity = parseInt($(this).val());
+    
+                    // Find the item in the cart
+                    const item = cart.find(item => item.id === id);
+    
+                    if (item) {
+                        if (quantity > 0) {
+                            item.quantity = quantity;
+                        } else {
+                            // Remove item if quantity is 0
+                            const index = cart.findIndex(item => item.id === id);
+                            if (index !== -1) {
+                                cart.splice(index, 1);
+                            }
+                        }
+                    }
+                });
+    
+                // Save updated cart to localStorage
+                console.log('Cart data before saving:', cart); // Debugging log
+                localStorage.setItem('cart', JSON.stringify(cart));
+    
+                // Update cart UI
+                updateCartUI();
+    
+                // Show notification
+                showNotification('Cart updated successfully!');
+            });
+    
+            // Helper functions
+            function updateCartUI() {
+                console.log('Cart data in updateCartUI:', cart); // Debugging log
+    
+                // Update cart count
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                $('#cart-count').text(totalItems);
+    
+                // Show/hide empty cart message
+                if (cart.length === 0) {
+                    $('#empty-cart').removeClass('hidden');
+                    $('#cart-items').addClass('hidden');
+                    $('#order-summary').addClass('hidden');
+                } else {
+                    $('#empty-cart').addClass('hidden');
+                    $('#cart-items').removeClass('hidden');
+                    $('#order-summary').removeClass('hidden');
+    
+                    // Clear cart items list
+                    $('#cart-items-list').empty();
+    
+                    // Add cart items to the list
+                    let subtotal = 0;
+    
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        subtotal += itemTotal;
+    
+                        console.log(`Item: ${item.name}, Quantity: ${item.quantity}, Price: ${item.price}, Total: ${itemTotal}`); // Debugging log
+    
+                        // Create cart item row
+                        const cartItemHtml = `
+                            <div class="p-4 border-b">
+                                <div class="grid grid-cols-12 gap-4 items-center">
+                                    <div class="col-span-6 md:col-span-6 flex items-center">
+                                        <div class="w-16 h-16 bg-gray-100 rounded-md mr-4 flex-shrink-0 overflow-hidden">
+                                            <img src="https://placehold.co/100/f0fdf4/166534?text=${item.name.charAt(0)}" alt="${item.name}" class="w-full h-full object-cover">
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-800">${item.name}</h3>
+                                            <button class="remove-item text-red-500 text-sm hover:text-red-700" data-id="${item.id}">
+                                                <i class="fas fa-trash-alt mr-1"></i> Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 md:col-span-2 text-center">
+                                        Rs.${item.price}
+                                    </div>
+                                    <div class="col-span-2 md:col-span-2 text-center">
+                                        <input type="number" class="item-quantity w-16 px-2 py-1 border border-gray-300 rounded text-center" value="${item.quantity}" min="0" data-id="${item.id}">
+                                    </div>
+                                    <div class="col-span-2 md:col-span-2 text-right font-medium">
+                                        Rs.${itemTotal.toFixed(2)}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+    
+                        $('#cart-items-list').append(cartItemHtml);
+                    });
+    
+                    // Calculate order summary
+                    const tax = subtotal * 0.08; // 8% tax
+                    const shipping = subtotal > 0 ? 5 : 0; // Rs.5 shipping fee
+                    const total = subtotal + tax + shipping;
+    
+                    // Update order summary
+                    $('#subtotal').text('Rs.' + subtotal.toFixed(2));
+                    $('#tax').text('Rs.' + tax.toFixed(2));
+                    $('#shipping').text('Rs.' + shipping.toFixed(2));
+                    $('#total').text('Rs.' + total.toFixed(2));
+    
+                    // Add event listener for remove buttons
+                    $('.remove-item').click(function () {
+                        const id = $(this).data('id');
+                        console.log('Removing item with ID:', id); // Debugging log
+    
+                        // Remove item from cart
+                        const index = cart.findIndex(item => item.id === id);
+                        if (index !== -1) {
+                            cart.splice(index, 1);
+                        }
+    
+                        // Save updated cart to localStorage
+                        console.log('Cart data before saving:', cart); // Debugging log
+                        localStorage.setItem('cart', JSON.stringify(cart));
+    
+                        // Update cart UI
+                        updateCartUI();
+    
+                        // Show notification
+                        showNotification('Item removed from cart!');
+                    });
+                }
+            }
+    
+            function showNotification(message) {
+                // Create notification element if it doesn't exist
+                if ($('#notification').length === 0) {
+                    $('body').append('<div id="notification" class="fixed top-20 right-4 bg-primary-600 text-white py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300"></div>');
+                }
+    
+                // Show notification with message
+                $('#notification').text(message).removeClass('translate-x-full');
+    
+                // Hide after 3 seconds
+                setTimeout(function () {
+                    $('#notification').addClass('translate-x-full');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

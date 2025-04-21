@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesticides - FarmerSupply</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 w-full bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="index.php" class="flex items-center">
+                    <i class="fas fa-seedling text-primary-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary-700">FarmerSupply</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.php" class="text-gray-700 hover:text-primary-600 font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-primary-600 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-primary-600 font-medium">About Us</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-600 font-medium">Contact</a>
+                </nav>
+                
+                <!-- Cart -->
+                <div class="relative">
+                    <a href="cart.html" class="text-gray-700 hover:text-primary-600">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="bg-primary-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Fertilizers</h1>
+                    <p class="text-primary-100 mt-2">Effective solutions for crop protection</p>
+                </div>
+                <nav class="text-sm mt-4 md:mt-0">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="index.php" class="text-primary-100 hover:text-white">Home</a></li>
+                        <li><span class="text-primary-100">/</span></li>
+                        <li><a href="products.html" class="text-primary-100 hover:text-white">Products</a></li>
+                        <li><span class="text-primary-100">/</span></li>
+                        <li><span class="text-white">Pesticides</span></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Listing Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="assets/fert1.jpg" alt="Fertilizer 1" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Azotobacter</h3>
+                        <p class="text-sm text-gray-600 mt-1">Boosts soil fertility and crop yield.</p>
+                        <div class="mt-2 text-primary-600 font-bold">₹600.00</div>
+                        <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="19" data-name="Fertilizer 1" data-price="600">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="assets/jaivik.jpg" alt="Fertilizer 2" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">JaivikShakti</h3>
+                        <p class="text-sm text-gray-600 mt-1">Enhances plant growth and soil health.</p>
+                        <div class="mt-2 text-primary-600 font-bold">₹850.00</div>
+                        <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="9" data-name="Alphonso Mango Seeds" data-price="2499">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="assets/gypsummeal.jpg" alt="Fertilizer 3" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Bloomico Gypsum Powder for Plants - Organic</h3>
+                        <p class="text-sm text-gray-600 mt-1">Improves soil structure and nutrient content.</p>
+                        <div class="mt-2 text-primary-600 font-bold">₹1,200.00</div>
+                        <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="9" data-name="Alphonso Mango Seeds" data-price="2499">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <!-- Add more products as needed -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="assets/fert4.webp" alt="Fertilizer 4" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Fantac Plus Growth Promoter</h3>
+                        <p class="text-sm text-gray-600 mt-1">Coromandel International.</p>
+                        <div class="mt-2 text-primary-600 font-bold">₹1,500.00</div>
+                        <button class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 add-to-cart" data-id="9" data-name="Alphonso Mango Seeds" data-price="2499">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-primary-400">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-primary-400">Products</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary-400">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-primary-400">Contact</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-primary-400">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="seeds.html" class="text-gray-400 hover:text-primary-400">Seeds</a></li>
+                        <li><a href="pesticides.html" class="text-primary-400 hover:text-primary-300">Pesticides</a></li>
+                        <li><a href="fertilizers.html" class="text-gray-400 hover:text-primary-400">Fertilizers</a></li>
+                        <li><a href="equipment.html" class="text-gray-400 hover:text-primary-400">Tools & Equipment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">Lovely Professional University . Jalandhar Punjab .</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">+91 9219447763</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">ramkumar977@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">tanyayadav1234@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">sahilpathan4351@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400">Created by &copy; RamKumar  ||  Tanya Yadav   ||   Sahil Pathan</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function () {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            $('.add-to-cart').click(function () {
+                const productId = $(this).data('id');
+                const productName = $(this).data('name');
+                const productPrice = parseFloat($(this).data('price'));
+
+                const existingProduct = cart.find(item => item.id === productId);
+                if (existingProduct) {
+                    existingProduct.quantity += 1;
+                } else {
+                    cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert(`${productName} has been added to your cart.`);
+            });
+        });
+    </script>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Custom JS -->
+<script src="js/main.js"></script>
+
+</html>

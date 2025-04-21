@@ -1,0 +1,54 @@
+
+
+2025-04-17 17:28:42 - New Request
+POST Data: Array
+(
+    [shipping_address] => sulgtdrvtfssdrrf
+    [total] => 152503
+    [items] => [{"id":1,"name":"Mini Tractor","price":149999,"quantity":1},{"id":2,"name":"Garden Tool Set","price":2499,"quantity":1}]
+)
+
+SESSION Data: Array
+(
+    [user_id] => 6
+    [user_name] => ram kumar
+    [user_email] => ramkumar9219442005@gmail.com
+)
+
+Success: Order created - ID: 24
+
+
+2025-04-17 18:48:08 - New Request
+POST Data: Array
+(
+    [shipping_address] => abcdsdedfklinjyhbh
+    [total] => 117.96
+    [items] => [{"id":1,"name":"Premium Hybrid Tomato Seeds","price":12.99,"quantity":2},{"id":2,"name":"Organic Neem Oil Pesticide","price":"18.50","quantity":2},{"id":3,"name":"NPK 20-20-20 Fertilizer","price":24.99,"quantity":2}]
+)
+
+SESSION Data: Array
+(
+    [user_id] => 7
+    [user_name] => Ram kumar
+    [user_email] => kashaudhans977@gmail.com
+)
+
+Success: Order created - ID: 25
+
+
+2025-04-17 20:00:09 - New Request
+POST Data: Array
+(
+    [shipping_address] => lucknow charbagh
+    [total] => 13842.98
+    [items] => [{"id":4,"name":"Premium Garden Tool Set","price":35.99,"quantity":1},{"id":5,"name":"Sweet Corn Seeds","price":9.99,"quantity":1},{"id":1,"name":"Hybrid Wheat Seeds","price":1499,"quantity":3},{"id":2,"name":"Premium Rice Seeds","price":1299,"quantity":2},{"id":9,"name":"Alphonso Mango Seeds","price":2499,"quantity":1},{"id":7,"name":"Okra Seeds","price":699,"quantity":1},{"id":3,"name":"Automatic Sprinkler System","price":3499,"quantity":1}]
+)
+
+SESSION Data: Array
+(
+    [user_id] => 6
+    [user_name] => ram kumar
+    [user_email] => ramkumar9219442005@gmail.com
+)
+
+Success: Order created - ID: 26
