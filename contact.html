@@ -377,59 +377,61 @@
     <!-- Custom JS -->
     <script src="js/main.js"></script>
     <script>
-        $(document).ready(function() {
-            // FAQ toggle
-            $('.faq-toggle').click(function() {
-                $(this).find('i').toggleClass('rotate-180');
-                $(this).next('.faq-content').slideToggle();
-            });
-            
-            // Contact form submission
-            $('#contact-form').submit(function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = $('#name').val();
-                const email = $('#email').val();
-                const subject = $('#subject').val();
-                const message = $('#message').val();
-                
-                // In a real application, this would send a request to the server
-                // For demo purposes, we'll simulate a successful submission
-                
-                // Simulate API call with a timeout
-                setTimeout(function() {
-                    // Show notification
-                    showNotification('Message sent successfully! We will get back to you soon.');
-                    
-                    // Reset form
+    $(document).ready(function () {
+    // Contact form submission
+    $('#contact-form').submit(function (e) {
+        e.preventDefault();
+
+        // Get form values
+        const name = $('#name').val();
+        const email = $('#email').val();
+        const subject = $('#subject').val();
+        const message = $('#message').val();
+
+        // Send data to the backend
+        $.ajax({
+            url: 'contact_submit.php', // Backend endpoint
+            method: 'POST',
+            data: { name, email, subject, message },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    // Show success notification
+                    showNotification(response.message, 'success');
+
+                    // Reset the form
                     $('#contact-form')[0].reset();
-                }, 1000);
-            });
-            
-            // Show notification function
-            function showNotification(message, type = 'success') {
-                // Create notification element if it doesn't exist
-                if ($('#notification').length === 0) {
-                    $('body').append('<div id="notification" class="fixed top-20 right-4 py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300"></div>');
+                } else {
+                    // Show error notification
+                    showNotification(response.message, 'error');
                 }
-                
-                // Set notification color based on type
-                if (type === 'success') {
-                    $('#notification').removeClass('bg-red-600').addClass('bg-primary-600 text-white');
-                } else if (type === 'error') {
-                    $('#notification').removeClass('bg-primary-600').addClass('bg-red-600 text-white');
-                }
-                
-                // Show notification with message
-                $('#notification').text(message).removeClass('translate-x-full');
-                
-                // Hide after 3 seconds
-                setTimeout(function() {
-                    $('#notification').addClass('translate-x-full');
-                }, 3000);
+            },
+            error: function () {
+                // Show error notification
+                showNotification('An error occurred while submitting the form. Please try again.', 'error');
             }
         });
-    </script>
+    });
+
+    // Show notification function
+    function showNotification(message, type = 'success') {
+        if ($('#notification').length === 0) {
+            $('body').append('<div id="notification" class="fixed top-20 right-4 py-2 px-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300"></div>');
+        }
+
+        if (type === 'success') {
+            $('#notification').removeClass('bg-red-600').addClass('bg-primary-600 text-white');
+        } else if (type === 'error') {
+            $('#notification').removeClass('bg-primary-600').addClass('bg-red-600 text-white');
+        }
+
+        $('#notification').text(message).removeClass('translate-x-full');
+
+        setTimeout(function () {
+            $('#notification').addClass('translate-x-full');
+        }, 3000);
+    }
+});
+</script>
 </body>
 </html>
