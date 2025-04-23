@@ -105,27 +105,27 @@ $userEmail = $isLoggedIn ? $_SESSION['user_email'] : null;
                     </div>
                     
                     <!-- User Account -->
-                    <div class="relative group">
-                        <button class="text-gray-700 hover:text-primary-600 focus:outline-none">
-                            <i class="fas fa-user text-xl"></i>
-                        </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
-                            <?php if ($isLoggedIn): ?>
-                                <!-- Logged-in Menu -->
-                                <div id="logged-in-menu">
-                                    <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Dashboard</a>
-                                    <a href="orders.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">My Orders</a>
-                                    <a href="logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Logout</a>
-                                </div>
-                            <?php else: ?>
-                                <!-- Logged-out Menu -->
-                                <div id="logged-out-menu">
-                                    <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Login</a>
-                                    <a href="register.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Register</a>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                   <div class="relative">
+    <button id="dropdownButton" class="text-gray-700 hover:text-primary-600 focus:outline-none">
+        <i class="fas fa-user text-xl"></i>
+    </button>
+    <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
+        <?php if ($isLoggedIn): ?>
+            <!-- Logged-in Menu -->
+            <div id="logged-in-menu">
+                <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Dashboard</a>
+                <a href="orders.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">My Orders</a>
+                <a href="logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Logout</a>
+            </div>
+        <?php else: ?>
+            <!-- Logged-out Menu -->
+            <div id="logged-out-menu">
+                <a href="login.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Login</a>
+                <a href="register.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50">Register</a>
+            </div>
+        <?php endif; ?>
+    </div>
+</div> </div>
                     
                     <!-- Mobile Menu Button -->
                     <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-primary-600 focus:outline-none">
@@ -571,6 +571,24 @@ $userEmail = $isLoggedIn ? $_SESSION['user_email'] : null;
             }, 3000);
         }
     });
+    </script>
+      <script>
+          //for the dropdown of login->register and logout.....
+        document.addEventListener('DOMContentLoaded', function () {
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dropdownButton.addEventListener('click', function () {
+        dropdownMenu.classList.toggle('hidden');
+    });
+
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', function (event) {
+        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+});
     </script>
 </body>
 </html>
