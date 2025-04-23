@@ -35,7 +35,12 @@ if (isset($_GET['token'])) {
                     $updateStmt->execute();
 
                     // Set success message
-                    $success = "Your password has been reset successfully.";
+                    $success = "Your password has been changed successfully.";
+                    echo "<script>
+                        alert('$success');
+                        window.location.href = 'login.php';
+                    </script>";
+                    exit();
                 }
             }
         } else {
